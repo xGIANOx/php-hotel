@@ -64,6 +64,28 @@ $hotels = [
 <body>
 
 <div class="container">
+<h1 class="mt-3">Hotel List</h1>
+  <form action="index.php" method="GET">
+    <div class="form-group">
+      <label for="parking">Filter by parking:</label>
+      <select name="parking" id="parking" class="form-control">
+        <option value="">All</option>
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+      </select>
+      <label class="mt-4" for="vote">Filter by vote:</label>
+      <select name="vote" id="vote" class="form-control">
+        <option value="">All</option>
+        <option value="1">1 Star</option>
+        <option value="2">2 Stars</option>
+        <option value="3">3 Stars</option>
+        <option value="4">4 Stars</option>
+        <option value="5">5 Stars</option>
+
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Filter</button>
+  </form>
 <table class="table table-success table-striped mt-5">
   <thead>
     <tr>
@@ -78,21 +100,18 @@ $hotels = [
   </thead>
   <tbody>
   <?php foreach ($hotels as $hotel) : ?>
-          
-        <tr>
-          <?php foreach ($hotel as $key => $value) : ?>
-            <?php if ($key === 'parking') : ?>
-                <td>
-                    <?php echo $value ? 'Yes' : 'No'; ?>
-                </td>
-            <?php else: ?>
-                <td>
-                    <?= "$value" ?>
-                </td>
-            <?php endif; ?>
-          <?php endforeach; ?>
-        </tr>
-  <?php endforeach; ?>
+  <?php if (!isset($_GET['parking']) || ($_GET['parking'] == $hotel['parking']) && !isset($_GET['vote']) || ($_GET['vote'] == $hotel['vote'])) : ?>
+    <tr>
+      <?php foreach ($hotel as $key => $value) : ?>
+        <?php if ($key === 'parking') : ?>
+          <td><?= $value ? 'Yes' : 'No'; ?></td>
+        <?php else: ?>
+          <td><?= $value ?></td>
+        <?php endif; ?>
+      <?php endforeach; ?>
+    </tr>
+  <?php endif; ?>
+<?php endforeach; ?>
 </tbody>
 </table>
 
