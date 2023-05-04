@@ -100,7 +100,7 @@ $hotels = [
   </thead>
   <tbody>
   <?php foreach ($hotels as $hotel) : ?>
-  <?php if (!isset($_GET['parking']) || ($_GET['parking'] == $hotel['parking']) && !isset($_GET['vote']) || ($_GET['vote'] == $hotel['vote'])) : ?>
+    <?php if ((!isset($_GET['parking']) || $_GET['parking'] == $hotel['parking']) && (!isset($_GET['vote']) || $_GET['vote'] <= $hotel['vote'])) : ?>
     <tr>
       <?php foreach ($hotel as $key => $value) : ?>
         <?php if ($key === 'parking') : ?>
